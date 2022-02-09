@@ -7,9 +7,10 @@ import kotlinx.browser.window
 fun main() {
     window.onload = {
         render(document.getElementById("root")!!) {
-            child(Welcome::class) {
+            child(CalculatorComponent::class) {
                 attrs {
-                    name = "Kotlin/JS"
+                    first = "0"
+                    second = "0"
                 }
             }
         }
