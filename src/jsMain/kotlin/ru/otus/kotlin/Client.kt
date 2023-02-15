@@ -2,16 +2,23 @@ package ru.otus.kotlin
 
 import react.create
 import react.dom.client.createRoot
+import ru.otus.kotlin.services.CalcService
 
 fun main() {
     web.window.window.onload = {
-        console.log("!#")
         val container = web.dom.document.getElementById("root")!!
 
+        val myCalcService = CalcService()
+
         createRoot(container).render(
-            Welcome.create {
-                name = "Kotlin'er"
+            CalculatorComponent.create {
+                first = "12"
+                second = "2"
+                calcService = myCalcService
             }
+//            Welcome.create {
+//                name = "Kotlin'er"
+//            }
         )
     }
 }
