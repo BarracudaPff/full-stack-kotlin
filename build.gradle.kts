@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_VARIABLE")
+
 plugins {
     kotlin("multiplatform") version "1.8.10"
     kotlin("plugin.serialization") version "1.8.10"
@@ -19,7 +21,6 @@ group = "ru.otus.kotlin"
 version = "1.0-SNAPSHOT"
 
 repositories {
-    jcenter()
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven")
 }
