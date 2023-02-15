@@ -1,6 +1,6 @@
 plugins {
-    kotlin("multiplatform") version "1.6.10"
-    kotlin("plugin.serialization") version "1.6.10"
+    kotlin("multiplatform") version "1.8.10"
+    kotlin("plugin.serialization") version "1.8.10"
     application
 }
 
@@ -9,6 +9,7 @@ val kotlinxCoroutinesVersion = project.property("kotlinx.coroutines.version") as
 val ktorVersion = project.property("ktor.version") as String
 val kotlinWrappersSuffix = project.property("kotlin.wrappers.suffix") as String
 
+val kotlinHtmlVersion = project.property("kotlinx.html.version") as String
 val kotlinStyledVersion = project.property("kotlinStyledVersion") as String
 val kotlinReactVersion = project.property("kotlinReactVersion") as String
 val exposedVersion = project.property("exposed.version") as String
@@ -26,20 +27,21 @@ repositories {
 kotlin {
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
+            kotlinOptions.jvmTarget = "11"
         }
         withJava()
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
     }
-    js(LEGACY) {
+    js(IR) {
         binaries.executable()
-        browser {
-            commonWebpackConfig {
-                cssSupport.enabled = true
-            }
-        }
+        browser()
+//        browser {
+//            commonWebpackConfig {
+//                cssSupport.enabled = true
+//            }
+//        }
     }
     sourceSets {
         val commonMain by getting {
@@ -57,11 +59,12 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
                 implementation("io.ktor:ktor-server-netty:$ktorVersion")
-                implementation("io.ktor:ktor-html-builder:$ktorVersion")
+                implementation("io.ktor:ktor-server-html-builder:$ktorVersion")
+                implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
+                implementation("io.ktor:ktor-serialization-jackson:$ktorVersion")
                 implementation("io.ktor:ktor-client-apache:$ktorVersion")
-                implementation("io.ktor:ktor-jackson:$ktorVersion")
-                implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.2")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-css:1.0.0-$kotlinWrappersSuffix")
+                implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:$kotlinHtmlVersion")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-css:$kotlinWrappersSuffix")
                 implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
                 implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
                 implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
@@ -73,7 +76,6 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-js"))
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$kotlinReactVersion")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$kotlinReactVersion")
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:$kotlinStyledVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$kotlinxCoroutinesVersion")
             }
