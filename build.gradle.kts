@@ -11,9 +11,10 @@ val kotlinxCoroutinesVersion = project.property("kotlinx.coroutines.version") as
 val ktorVersion = project.property("ktor.version") as String
 val kotlinWrappersSuffix = project.property("kotlin.wrappers.suffix") as String
 
+val kotlinEmotionVersion: String by project
+val kotlinReactVersion: String by project
+
 val kotlinHtmlVersion = project.property("kotlinx.html.version") as String
-val kotlinStyledVersion = project.property("kotlinStyledVersion") as String
-val kotlinReactVersion = project.property("kotlinReactVersion") as String
 val exposedVersion = project.property("exposed.version") as String
 val h2Version = project.property("h2.version") as String
 
@@ -77,7 +78,8 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-js"))
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$kotlinReactVersion")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-styled:$kotlinStyledVersion")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:$kotlinReactVersion")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:$kotlinEmotionVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:$kotlinxCoroutinesVersion")
             }
         }
