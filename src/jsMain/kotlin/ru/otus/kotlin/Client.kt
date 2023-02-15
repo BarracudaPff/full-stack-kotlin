@@ -1,17 +1,17 @@
 package ru.otus.kotlin
 
-import react.dom.render
-import kotlinx.browser.document
-import kotlinx.browser.window
+import react.create
+import react.dom.client.createRoot
 
 fun main() {
-    window.onload = {
-        render(document.getElementById("root")!!) {
-            child(Welcome::class) {
-                attrs {
-                    name = "Kotlin/JS"
-                }
+    web.window.window.onload = {
+        console.log("!#")
+        val container = web.dom.document.getElementById("root")!!
+
+        createRoot(container).render(
+            Welcome.create {
+                name = "Kotlin'er"
             }
-        }
+        )
     }
 }

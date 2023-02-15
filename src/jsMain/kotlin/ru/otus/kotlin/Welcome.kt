@@ -1,42 +1,27 @@
 package ru.otus.kotlin
 
-import kotlinx.html.InputType
-import kotlinx.html.js.onChangeFunction
-import org.w3c.dom.HTMLInputElement
+import react.FC
 import react.Props
-import react.RBuilder
-import react.RComponent
-import react.State
-import react.dom.attrs
-import react.dom.div
-import react.dom.input
+import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.input
+import react.useState
+import web.html.InputType
 
 external interface WelcomeProps : Props {
     var name: String
 }
 
-data class WelcomeState(val name: String) : State
+val Welcome = FC<WelcomeProps> {
+    var name by useState(it.name)
 
-class Welcome(props: WelcomeProps) : RComponent<WelcomeProps, WelcomeState>(props) {
-
-    init {
-        state = WelcomeState(props.name)
+    div {
+        +"Hello from Kotlin+JS, ${name}!"
     }
-
-    override fun RBuilder.render() {
-        div {
-            +"Hello, ${state.name}"
-        }
-        input {
-            attrs {
-                type = InputType.text
-                value = state.name
-                onChangeFunction = { event ->
-                    setState(
-                        WelcomeState(name = (event.target as HTMLInputElement).value)
-                    )
-                }
-            }
+    input {
+        type = InputType.text
+        value = name
+        onChange = { e ->
+            name = e.target.value
         }
     }
 }

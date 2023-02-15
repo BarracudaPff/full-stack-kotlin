@@ -1,14 +1,12 @@
 package ru.otus.kotlin
 
-import io.ktor.application.call
-import io.ktor.html.respondHtml
-import io.ktor.http.HttpStatusCode
-import io.ktor.routing.get
-import io.ktor.routing.routing
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
-import io.ktor.http.content.resources
-import io.ktor.http.content.static
+import io.ktor.http.*
+import io.ktor.server.application.*
+import io.ktor.server.engine.*
+import io.ktor.server.html.*
+import io.ktor.server.http.content.*
+import io.ktor.server.netty.*
+import io.ktor.server.routing.*
 import kotlinx.html.*
 
 fun HTML.index() {
